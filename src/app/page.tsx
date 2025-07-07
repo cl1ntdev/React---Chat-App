@@ -3,6 +3,10 @@ import { useRouter } from "next/navigation";
 import { useEffect,useState } from "react";
 import Chat from "./Pages/Chat";
 import Login from "./Pages/Login";
+
+
+
+
 export default function Home() {
   const [username,setUsername] = useState("")
   const [room,setRoom] = useState("")
@@ -17,7 +21,7 @@ export default function Home() {
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
       {isLogin ? (
         <Chat username={username} room={room} />
       ):(

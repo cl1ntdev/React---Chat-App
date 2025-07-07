@@ -22,7 +22,6 @@ export default function Login({onLogin}: loginProps){
   const [room,setRoom] = useState("")
 
   const passCred = (e: React.FormEvent) =>{
-    console.log('working')
     e.preventDefault()
     onLogin(username.trim(),room.trim())
   }

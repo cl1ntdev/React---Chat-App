@@ -1,18 +1,50 @@
 "use client"
 
-
+// components
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
 
+// message rendering
+import { io } from "socket.io-client"
+
+const socket = io('http://localhost:3001')
+
+export default function Chat ({username,room} : {username:String,room:String}){
+
+    // -------- > for testing 
+    // useEffect(()=>{
+    //   socket.emit("client_ready", "hello from client")
+    // },)
+    const [sentMessage,setSentMessage] = useState<String>("")
 
 
+    //for checking Rooms and joining a speceifc room 
+    useEffect(()=>{
+      socket.emit("check_room",room) 
 
-export default function Chat ({username,room} : {username:string,room:string}){
+      const handleRecieveMess = ({username,message}:{username:String,message:String}) => {
+        console.log(username + ": " + message)
+      }
+
+      socket.on("recieve_client",handleRecieveMess)
+
+          // Clean up listener on unmount or re-render
+      return () => {
+        socket.off("recieve_client", handleRecieveMess);
+      };
+    },[room])
+
+
+  
+    
+    
 
     const [message,setMessage] = useState<string>("")
     const handleSendMessage = () =>{
-
+      console.log(username)
+      console.log('working')
+      socket.emit("client_ready_send",{room,message,username})
     }
 
     return(
@@ -46,7 +78,7 @@ export default function Chat ({username,room} : {username:string,room:string}){
         </div>
       </div>
       <div className="p-4 bg-white border-t border-gray-200">
-        <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Input
             type="text"
             value={message}
@@ -54,10 +86,10 @@ export default function Chat ({username,room} : {username:string,room:string}){
             placeholder="Type your message..."
             className="flex-1 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
           />
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
+          <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleSendMessage}>
             Send
           </Button>
-        </form>
+        </div>
       </div>
     </div>
     )
