@@ -10,27 +10,6 @@ import { useEffect, useState } from "react"
 
 export default function Chat ({username,room} : {username:string,room:string}){
 
-    useEffect(()=>{
-        const socket = new WebSocket('ws://localhost:8081')
-
-        socket.onopen = () =>{
-            console.log('connected')
-        }
-
-        socket.onmessage = (message:MessageEvent) =>{
-            const data = message.data
-            console.log("revieved data is: ",data)
-        }
-
-        socket.onclose = () => {
-            console.log('disconnected from web socket')
-        }
-
-        return () => socket.close()
-
-    },[])
-
-
     const [message,setMessage] = useState<string>("")
     const handleSendMessage = () =>{
 

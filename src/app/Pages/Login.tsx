@@ -28,7 +28,7 @@ export default function Login({onLogin}: loginProps){
   }
 
   return(
-    <div className="flex items-center justify-center bg-green-900 w-200">
+    <div className="flex items-center justify-center w-200">
       <Card className="w-full max-w-sm">
       <CardHeader>
         <CardTitle>Welcome To Ants Colony</CardTitle>
