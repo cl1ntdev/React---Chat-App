@@ -1,6 +1,5 @@
 "use client"
-import { useRouter } from "next/navigation";
-import { useEffect,useState } from "react";
+import { useState } from "react";
 import Chat from "./Pages/Chat";
 import Login from "./Pages/Login";
 
@@ -8,11 +7,11 @@ import Login from "./Pages/Login";
 
 
 export default function Home() {
-  const [username,setUsername] = useState("")
-  const [room,setRoom] = useState("")
+  const [username,setUsername] = useState<String>("")
+  const [room,setRoom] = useState<String>("")
   const [isLogin,setLogin] = useState(false)
 
-  const processLogin = (username:string,room:string) =>{
+  const processLogin = (username:String,room:String) =>{
     setUsername(username)
     setRoom(room)
     setLogin(true)

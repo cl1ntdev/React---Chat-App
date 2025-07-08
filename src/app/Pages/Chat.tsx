@@ -52,7 +52,7 @@ export default function Chat ({username,room} : {username:String,room:String}){
     
     
 
-    const [message,setMessage] = useState<string>("")
+    const [message,setMessage] = useState("")
     const handleSendMessage = () =>{
       console.log(username)
       console.log('working')

@@ -1,8 +1,6 @@
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -14,7 +12,7 @@ import { useState } from "react"
 
 
 type loginProps = {
-  onLogin : (username:string, room:string) => void
+  onLogin : (username:String, room:String) => void
 };
 
 export default function Login({onLogin}: loginProps){
