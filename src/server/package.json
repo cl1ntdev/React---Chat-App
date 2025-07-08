@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "React---Chat-App - backend",
   "version": "1.0.0",
   "description": "",
@@ -11,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
