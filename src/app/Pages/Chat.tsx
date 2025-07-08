@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 // message rendering
 import { io } from "socket.io-client"
 
-const socket = io('http://localhost:3001')
+const socket = io('https://server-i3ou.onrender.com/')
 
 type Messages = {
   username: String,
