@@ -10,6 +10,11 @@ import { io } from "socket.io-client"
 
 const socket = io('http://localhost:3001')
 
+type Messages = {
+  username: String,
+  message: String,
+}
+
 export default function Chat ({username,room} : {username:String,room:String}){
 
     // -------- > for testing 
@@ -17,7 +22,7 @@ export default function Chat ({username,room} : {username:String,room:String}){
     //   socket.emit("client_ready", "hello from client")
     // },)
     const [sentMessage,setSentMessage] = useState<String>("")
-
+    const [roomMessages,setRoomMessages] = useState<Messages[]>([])
 
     //for checking Rooms and joining a speceifc room 
     useEffect(()=>{
@@ -25,6 +30,11 @@ export default function Chat ({username,room} : {username:String,room:String}){
 
       const handleRecieveMess = ({username,message}:{username:String,message:String}) => {
         console.log(username + ": " + message)
+        var newMessages:Messages = {
+          username: username,
+          message: message
+        }
+        setRoomMessages(prevMessages=>[...prevMessages,newMessages])
       }
 
       socket.on("recieve_client",handleRecieveMess)
@@ -35,7 +45,9 @@ export default function Chat ({username,room} : {username:String,room:String}){
       };
     },[room])
 
-
+    // useEffect(()=>{
+    //   console.log(roomMessages)
+    // },[roomMessages])
   
     
     
@@ -57,24 +69,24 @@ export default function Chat ({username,room} : {username:String,room:String}){
       </div>
       <div className="flex-1 p-4 overflow-y-auto bg-gray-50">
         <div className="space-y-4">
-          {/* {messages.map((msg, index) => (
+          {roomMessages.map((msg, index) => (
             <div
               key={index}
               className={`flex ${
-                msg.sender === username ? "justify-end" : "justify-start"
+                msg.username === username ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 className={`max-w-xs p-3 rounded-lg ${
-                  msg.sender === username
+                  msg.username === username
                     ? "bg-blue-600 text-white"
                     : "bg-white text-gray-900 border border-gray-200"
                 }`}
               >
-                <p className="text-sm">{msg.text}</p>
+                <p className="text-sm">{msg.message}</p>
               </div>
             </div>
-          ))} */}
+           ))}
         </div>
       </div>
       <div className="p-4 bg-white border-t border-gray-200">
